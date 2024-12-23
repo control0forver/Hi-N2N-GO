@@ -98,5 +98,6 @@
     <string name="server">Server</string>
     <string name="room_code">Room Code</string>
     <string name="room_password">Room Password</string>
+    <string name="f_service_is_running">%s service is running</string>
 
 </resources>

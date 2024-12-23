@@ -19,7 +19,7 @@ static void ResetEdgeStatus(JNIEnv *env, uint8_t cleanup);
 
 static void InitEdgeStatus(void);
 
-JNIEXPORT jboolean JNICALL Java_wang_switchy_hin2n_service_N2NService_startEdge(
+JNIEXPORT jboolean JNICALL Java_lgfstudio_bestlgf_hin2ngo_service_N2NService_startEdge(
         JNIEnv *env,
         jobject this,
         jobject jcmd) {
@@ -55,13 +55,13 @@ JNIEXPORT jboolean JNICALL Java_wang_switchy_hin2n_service_N2NService_startEdge(
         return JNI_FALSE;
     }
     status.jobj_service = (*env)->NewGlobalRef(env, this);
-    jclass cls = (*env)->FindClass(env, "wang/switchy/hin2n/model/EdgeStatus");
+    jclass cls = (*env)->FindClass(env, "lgfstudio/bestlgf/hin2ngo/model/EdgeStatus");
     if (!cls) {
         ResetEdgeStatus(env, 1 /* cleanup*/);
         return JNI_FALSE;
     }
     status.jcls_status = (*env)->NewGlobalRef(env, cls);
-    jclass cls_rs = (*env)->FindClass(env, "wang/switchy/hin2n/model/EdgeStatus$RunningStatus");
+    jclass cls_rs = (*env)->FindClass(env, "lgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus");
     if (!cls_rs) {
         ResetEdgeStatus(env, 1 /* cleanup*/);
         return JNI_FALSE;
@@ -104,7 +104,7 @@ JNIEXPORT jboolean JNICALL Java_wang_switchy_hin2n_service_N2NService_startEdge(
     return JNI_TRUE;
 }
 
-JNIEXPORT void JNICALL Java_wang_switchy_hin2n_service_N2NService_stopEdge(
+JNIEXPORT void JNICALL Java_lgfstudio_bestlgf_hin2ngo_service_N2NService_stopEdge(
         JNIEnv *env,
         jobject this) {
 
@@ -114,7 +114,7 @@ JNIEXPORT void JNICALL Java_wang_switchy_hin2n_service_N2NService_stopEdge(
     ResetEdgeStatus(env, 0 /* not cleanup*/);
 }
 
-JNIEXPORT jobject JNICALL Java_wang_switchy_hin2n_service_N2NService_getEdgeStatus(
+JNIEXPORT jobject JNICALL Java_lgfstudio_bestlgf_hin2ngo_service_N2NService_getEdgeStatus(
         JNIEnv *env,
         jobject this) {
     const char *running_status = "DISCONNECT";
@@ -144,18 +144,18 @@ JNIEXPORT jobject JNICALL Java_wang_switchy_hin2n_service_N2NService_getEdgeStat
         }
     }
 
-    jclass cls = (*env)->FindClass(env, "wang/switchy/hin2n/model/EdgeStatus");
+    jclass cls = (*env)->FindClass(env, "lgfstudio/bestlgf/hin2ngo/model/EdgeStatus");
     jobject jStatus = (*env)->NewObject(env, cls, (*env)->GetMethodID(env, cls, "<init>", "()V"));
     if (!jStatus) {
         return NULL;
     }
-    jclass cls_rs = (*env)->FindClass(env, "wang/switchy/hin2n/model/EdgeStatus$RunningStatus");
+    jclass cls_rs = (*env)->FindClass(env, "lgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus");
     jobject jRunningStatus = (*env)->GetStaticObjectField(env, cls_rs,
                                                           (*env)->GetStaticFieldID(env, cls_rs,
                                                                                    running_status,
-                                                                                   "Lwang/switchy/hin2n/model/EdgeStatus$RunningStatus;"));
+                                                                                   "Llgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus;"));
     (*env)->SetObjectField(env, jStatus, (*env)->GetFieldID(env, cls, "runningStatus",
-                                                            "Lwang/switchy/hin2n/model/EdgeStatus$RunningStatus;"),
+                                                            "Llgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus;"),
                            jRunningStatus);
 
     return jStatus;
@@ -672,7 +672,7 @@ void report_edge_status(void) {
     }
 
     jfieldID fid = (*env)->GetStaticFieldID(env, status.jcls_rs, running_status,
-                                            "Lwang/switchy/hin2n/model/EdgeStatus$RunningStatus;");
+                                            "Llgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus;");
     if (!fid) {
         (*env)->DeleteLocalRef(env, jStatus);
         return;
@@ -684,7 +684,7 @@ void report_edge_status(void) {
         return;
     }
     fid = (*env)->GetFieldID(env, status.jcls_status, "runningStatus",
-                             "Lwang/switchy/hin2n/model/EdgeStatus$RunningStatus;");
+                             "Llgfstudio/bestlgf/hin2ngo/model/EdgeStatus$RunningStatus;");
     if (!fid) {
         (*env)->DeleteLocalRef(env, jRunningStatus);
         (*env)->DeleteLocalRef(env, jStatus);
@@ -700,7 +700,7 @@ void report_edge_status(void) {
         return;
     }
     mid = (*env)->GetMethodID(env, cls, "reportEdgeStatus",
-                              "(Lwang/switchy/hin2n/model/EdgeStatus;)V");
+                              "(Llgfstudio/bestlgf/hin2ngo/model/EdgeStatus;)V");
     if (!mid) {
         (*env)->DeleteLocalRef(env, jRunningStatus);
         (*env)->DeleteLocalRef(env, jStatus);

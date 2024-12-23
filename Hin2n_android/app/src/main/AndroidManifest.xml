@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="wang.switchy.hin2n">
+    package="lgfstudio.bestlgf.hin2ngo">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".Hin2nApplication"
+        android:name="lgfstudio.bestlgf.hin2ngo.HiN2NGOApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
         <receiver
-            android:name=".receiver.BootCompletedReceiver"
+            android:name="lgfstudio.bestlgf.hin2ngo.receiver.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000" >
@@ -40,7 +40,7 @@
         </receiver>
 
         <activity
-            android:name=".activity.MainActivity">
+            android:name="lgfstudio.bestlgf.hin2ngo.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,16 +49,16 @@
         </activity>
 
         <activity
-            android:name=".activity.ListActivity"/>
+            android:name="lgfstudio.bestlgf.hin2ngo.activity.ListActivity"/>
 
         <activity
-            android:name=".activity.SettingDetailsActivity"/>
+            android:name="lgfstudio.bestlgf.hin2ngo.activity.SettingDetailsActivity"/>
 
         <activity
-            android:name=".activity.WebViewActivity"/>
+            android:name="lgfstudio.bestlgf.hin2ngo.activity.WebViewActivity"/>
 
         <service
-            android:name=".service.N2NService"
+            android:name="lgfstudio.bestlgf.hin2ngo.service.N2NService"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>
                 <action android:name="android.net.VpnService" />

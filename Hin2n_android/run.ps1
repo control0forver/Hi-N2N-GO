@@ -54,7 +54,7 @@ while (1)
             break
         }
 
-        & adb shell am start -n wang.switchy.hin2n/.activity.MainActivity
+        & adb shell am start -n lgfstudio.bestlgf.hin2ngo/.activity.MainActivity
     }
     catch
     {

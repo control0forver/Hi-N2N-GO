@@ -72,7 +72,7 @@ android {
         release {
             storeFile file("HiN2NGO.jks")
             storePassword getEnvOrConsole("HIN2N_KSTOREPWD", "Keystore password")
-            keyAlias "Hin2n"
+            keyAlias "key0"
             keyPassword getEnvOrConsole("HIN2N_KEYPWD", "Key password")
         }
     }
@@ -95,11 +95,11 @@ android {
     }
 
     gradle.taskGraph.beforeTask { Task task ->
-        if (task.name.contains("Release")) {
-            task.onlyIf {
-
-            }
-        }
+//        if (task.name.contains("Release")) {
+//            task.onlyIf {
+//
+//            }
+//        }
     }
 
     applicationVariants.all { variant ->

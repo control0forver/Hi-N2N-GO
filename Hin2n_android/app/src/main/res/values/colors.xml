@@ -4,9 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorSupernodeDisconnect">#FF0000</color>
+    <color name="colorBackground">#f5f5f5</color>
+    <color name="colorButton">@color/colorPrimary</color>
+    <color name="colorTerminalGray">#302C2C</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#919191</color>
     <color name="c_white">#ffffff</color>
     <color name="c_gray">#c7c7c7</color>
-    <color name="termail_gray">#302C2C</color>
-    <color name="c_black">#000000</color>
-    <color name="c_eeeeee">#eeeeee</color>
+    <color name="c_eee">#eeeeee</color>
 </resources>

@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,7 +27,7 @@ import wang.switchy.hin2n.activity.MainActivity;
 import wang.switchy.hin2n.event.*;
 import wang.switchy.hin2n.model.EdgeCmd;
 import wang.switchy.hin2n.model.EdgeStatus;
-import wang.switchy.hin2n.model.N2NSettingInfo;
+import wang.switchy.hin2n.model.Config;
 import wang.switchy.hin2n.tool.IOUtils;
 import wang.switchy.hin2n.tool.LogFileObserver;
 import wang.switchy.hin2n.tool.ThreadUtils;
@@ -48,7 +47,7 @@ public class N2NService extends VpnService {
 
     private ParcelFileDescriptor mParcelFileDescriptor = null;
     private EdgeCmd cmd;
-    N2NSettingInfo mN2nSettingInfo = null;
+    Config mConfig = null;
 
     private EdgeStatus.RunningStatus mLastStatus = DISCONNECT;
     private EdgeStatus.RunningStatus mCurrentStatus = DISCONNECT;
@@ -70,23 +69,23 @@ public class N2NService extends VpnService {
     public int EstablishVpnService(String ip, int mask) {
 
         Builder builder = new Builder()
-                .setMtu(mN2nSettingInfo.getMtu())
+                .setMtu(mConfig.getMtu())
                 .addAddress(ip, mask)
-                .addRoute(getRoute(mN2nSettingInfo.getIp(), mask), mask);
+                .addRoute(getRoute(mConfig.getIp(), mask), mask);
 
-        if (!mN2nSettingInfo.getGatewayIp().isEmpty()) {
+        if (!mConfig.getGatewayIp().isEmpty()) {
             /* Route all the internet traffic via n2n. Most specific routes "win" over the system default gateway.
              * See https://github.com/zerotier/ZeroTierOne/issues/178#issuecomment-204599227 */
             builder.addRoute("0.0.0.0", 1);
             builder.addRoute("128.0.0.0", 1);
         }
 
-        if (!mN2nSettingInfo.getDnsServer().isEmpty()) {
-            Log.d("N2NService", "Using DNS server: " + mN2nSettingInfo.getDnsServer());
-            builder.addDnsServer(mN2nSettingInfo.getDnsServer());
+        if (!mConfig.getDnsServer().isEmpty()) {
+            Log.d("N2NService", "Using DNS server: " + mConfig.getDnsServer());
+            builder.addDnsServer(mConfig.getDnsServer());
         }
 
-        String session = getResources().getStringArray(R.array.vpn_session_name)[mN2nSettingInfo.getVersion()];
+        String session = getResources().getStringArray(R.array.vpn_session_name)[mConfig.getFramework()];
         try {
             mParcelFileDescriptor = builder.setSession(session).establish();
         } catch (IllegalArgumentException e) {
@@ -113,18 +112,18 @@ public class N2NService extends VpnService {
         }
 
         Bundle setting = intent.getBundleExtra("Setting");
-        mN2nSettingInfo = setting.getParcelable("n2nSettingInfo");
+        mConfig = setting.getParcelable("n2nSettingInfo");
 
         int vpnServiceFd = -1;
-        if (mN2nSettingInfo.getIpMode() == 0) {
-            vpnServiceFd = EstablishVpnService(mN2nSettingInfo.getIp(), getIpAddrPrefixLength(mN2nSettingInfo.getNetmask()));
+        if (mConfig.getIpMode() == 0) {
+            vpnServiceFd = EstablishVpnService(mConfig.getIp(), getIpAddrPrefixLength(mConfig.getNetmask()));
             if (vpnServiceFd < 0) {
                 return super.onStartCommand(intent, flags, startId);
             }
         }
 
-        String session = getResources().getStringArray(R.array.vpn_session_name)[mN2nSettingInfo.getVersion()];
-        cmd = new EdgeCmd(mN2nSettingInfo, vpnServiceFd, getExternalFilesDir("log") + "/" + session + ".log");
+        String session = getResources().getStringArray(R.array.vpn_session_name)[mConfig.getFramework()];
+        cmd = new EdgeCmd(mConfig, vpnServiceFd, getExternalFilesDir("log") + "/" + session + ".log");
         mFileObserver = new LogFileObserver(cmd.logPath);
         mFileObserver.stopWatching();
         IOUtils.clearLogTxt(cmd.logPath);

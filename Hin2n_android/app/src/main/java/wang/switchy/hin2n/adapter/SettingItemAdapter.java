@@ -1,18 +1,24 @@
 package wang.switchy.hin2n.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import wang.switchy.hin2n.R;
-import wang.switchy.hin2n.entity.SettingItemEntity;
+import wang.switchy.hin2n.entity.ConfigItemEntity;
 
 /**
  * Created by janiszhang on 2018/5/6.
@@ -21,10 +27,10 @@ import wang.switchy.hin2n.entity.SettingItemEntity;
 public class SettingItemAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<SettingItemEntity> mSettingItemEntities;
+    private List<ConfigItemEntity> mSettingItemEntities;
     private final LayoutInflater mLayoutInflater;
 
-    public SettingItemAdapter(Context context, List<SettingItemEntity> settingItemEntities) {
+    public SettingItemAdapter(Context context, List<ConfigItemEntity> settingItemEntities) {
         mContext = context;
         mSettingItemEntities = settingItemEntities;
 
@@ -49,13 +55,14 @@ public class SettingItemAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        final SettingItemEntity settingItemEntity = mSettingItemEntities.get(position);
+        final ConfigItemEntity configItemEntity = mSettingItemEntities.get(position);
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.layout_setting_item, null);
             viewHolder = new ViewHolder();
+            viewHolder.root = (RelativeLayout) convertView.findViewById(R.id.item_container);
             viewHolder.settingName = (TextView) convertView.findViewById(R.id.tv_setting_name);
-            viewHolder.imgIsSelected = (RadioButton) convertView.findViewById(R.id.iv_selected);
-            viewHolder.moreInfo = (ImageView) convertView.findViewById(R.id.iv_info);
+            viewHolder.radioButton = (RadioButton) convertView.findViewById(R.id.iv_selected);
+            viewHolder.moreInfo = (ImageButton) convertView.findViewById(R.id.iv_info);
 
             convertView.setTag(viewHolder);
 
@@ -63,25 +70,43 @@ public class SettingItemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.settingName.setText(settingItemEntity.getSettingName());
-        if (settingItemEntity.isSelected()) {
-            viewHolder.imgIsSelected.setChecked(true);
+        View.OnClickListener onSelect = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                configItemEntity.mOnSelectBtnClickListener.onClick(position);
+            }
+        };
+
+        viewHolder.root.setOnClickListener(onSelect);
+        viewHolder.root.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                configItemEntity.mOnLongClickListener.onLongClick(position);
+                return true;
+            }
+        });
+
+        viewHolder.settingName.setText(configItemEntity.getSettingName());
+        if (configItemEntity.isSelected()) {
+            viewHolder.radioButton.setChecked(true);
         } else {
-            viewHolder.imgIsSelected.setChecked(false);
+            viewHolder.radioButton.setChecked(false);
         }
 
+        viewHolder.radioButton.setOnClickListener(onSelect);
         viewHolder.moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settingItemEntity.mOnMoreBtnClickListener.onClick(position);
+                configItemEntity.mOnMoreBtnClickListener.onClick(position);
             }
         });
         return convertView;
     }
 
     class ViewHolder {
+        RelativeLayout root;
         TextView settingName;
-        RadioButton imgIsSelected;
-        ImageView moreInfo;
+        RadioButton radioButton;
+        ImageButton moreInfo;
     }
 }

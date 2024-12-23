@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +23,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.orhanobut.logger.Logger;
-import com.tencent.bugly.beta.Beta;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import wang.switchy.hin2n.Hin2nApplication;
 import wang.switchy.hin2n.R;
 import wang.switchy.hin2n.adapter.TermAdapter;
@@ -44,27 +40,28 @@ import wang.switchy.hin2n.event.StartEvent;
 import wang.switchy.hin2n.event.StopEvent;
 import wang.switchy.hin2n.event.SupernodeDisconnectEvent;
 import wang.switchy.hin2n.model.EdgeStatus;
-import wang.switchy.hin2n.model.N2NSettingInfo;
+import wang.switchy.hin2n.model.Config;
 import wang.switchy.hin2n.service.N2NService;
 import wang.switchy.hin2n.storage.db.base.model.N2NSettingModel;
 import wang.switchy.hin2n.template.BaseTemplate;
 import wang.switchy.hin2n.template.CommonTitleTemplate;
 import wang.switchy.hin2n.tool.IOUtils;
 import wang.switchy.hin2n.tool.N2nTools;
-import wang.switchy.hin2n.tool.ShareUtils;
 import wang.switchy.hin2n.tool.ThreadUtils;
 
 public class MainActivity extends BaseActivity {
+
+    public static MainActivity Inst;
 
     private N2NSettingModel mCurrentSettingInfo;
     private RelativeLayout mCurrentSettingItem;
     private TextView mCurrentSettingName;
     private TextView mLogAction;
     private NestedScrollView mScrollLogAction;
-    private ImageView mConnectBtn;
+    private ImageButton mConnectBtn;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private LinearLayout mLeftMenu;
+    private ScrollView mLeftMenu;
     private String logTxtPath;
     private CheckBox mStartAtBoot;
     private RecyclerView mRecyclerView;
@@ -78,9 +75,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected BaseTemplate createTemplate() {
         CommonTitleTemplate titleTemplate = new CommonTitleTemplate(this, getString(R.string.app_name));
-        titleTemplate.mRightImg.setImageResource(R.mipmap.ic_add);
-        titleTemplate.mRightImg.setVisibility(View.VISIBLE);
-        titleTemplate.mRightImg.setOnClickListener(new View.OnClickListener() {
+        titleTemplate.mRightAction.setImageResource(R.mipmap.ic_add);
+        titleTemplate.mRightAction.setVisibility(View.VISIBLE);
+        titleTemplate.mRightAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingDetailsActivity.class);
@@ -89,10 +86,10 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        titleTemplate.mLeftImg.setImageResource(R.mipmap.ic_menu);
-        titleTemplate.mLeftImg.setVisibility(View.VISIBLE);
-        titleTemplate.mLeftImg.setVisibility(View.VISIBLE);
-        titleTemplate.mLeftImg.setOnClickListener(new View.OnClickListener() {
+        titleTemplate.mLeftAction.setImageResource(R.mipmap.ic_menu);
+        titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
+        titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
+        titleTemplate.mLeftAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mDrawerLayout.isDrawerOpen(mLeftMenu)) {
@@ -108,6 +105,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void doOnCreate(Bundle savedInstanceState) {
+        Inst = this;
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -131,9 +129,9 @@ public class MainActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-        mLeftMenu = (LinearLayout) findViewById(R.id.ll_menu_left);
+        mLeftMenu = (ScrollView) findViewById(R.id.ll_menu_left);
 
-        mConnectBtn = (ImageView) findViewById(R.id.iv_connect_btn);
+        mConnectBtn = (ImageButton) findViewById(R.id.iv_connect_btn);
 //        mLogAction = (TextView) findViewById(R.id.tv_log_action);
 //        mScrollLogAction = (NestedScrollView) findViewById(R.id.scroll_log_action);
         mRecyclerView = (RecyclerView) findViewById(R.id.scroll_log_action);
@@ -154,8 +152,8 @@ public class MainActivity extends BaseActivity {
         mConnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mCurrentSettingName.getText().equals(getResources().getString(R.string.no_setting))) {
-                    Toast.makeText(mContext, "no setting selected", Toast.LENGTH_SHORT).show();
+                if (mCurrentSettingName.getText().equals(getResources().getString(R.string.no_config))) {
+                    Toast.makeText(mContext, R.string.no_config_selected, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -187,19 +185,19 @@ public class MainActivity extends BaseActivity {
         });
 
         mCurrentSettingName = (TextView) findViewById(R.id.tv_current_setting_name);
-        mCurrentSettingName.setText(R.string.no_setting);
+        mCurrentSettingName.setText(R.string.no_config);
 
         mStartAtBoot = (CheckBox) findViewById(R.id.check_box_start_at_boot);
         SharedPreferences n2nSp = getSharedPreferences("Hin2n", Context.MODE_PRIVATE);
-        if(n2nSp.getBoolean("start_at_boot", false))
+        if (n2nSp.getBoolean("start_at_boot", false))
             mStartAtBoot.setChecked(true);
 
-        mStartAtBoot.setOnClickListener(new View.OnClickListener(){
+        mStartAtBoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mStartAtBoot.isChecked()) {
                     Intent vpnPrepareIntent = VpnService.prepare(MainActivity.this);
-                    if (vpnPrepareIntent != null){
+                    if (vpnPrepareIntent != null) {
                         startActivityForResult(vpnPrepareIntent, REQUEST_CODE_VPN_FOR_START_AT_BOOT);
                         return;
                     }
@@ -213,10 +211,10 @@ public class MainActivity extends BaseActivity {
         mTermAdapter = new TermAdapter(null);
         mRecyclerView.setAdapter(mTermAdapter);
         mTermAdapter.setNewInstance(term);
-        initLeftMenu();
+        initAppFlyoutMenu();
     }
 
-    private void initLeftMenu() {
+    private void initAppFlyoutMenu() {
         TextView appVersion = (TextView) findViewById(R.id.tv_app_version);
         appVersion.setText(N2nTools.getVersionName(this));
 
@@ -224,44 +222,24 @@ public class MainActivity extends BaseActivity {
         shareItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Logger.d("shareItem onClick~");
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                    AndPermission.with(MainActivity.this)
-                            .runtime()
-                            .permission(Permission.READ_EXTERNAL_STORAGE, Permission.ACCESS_FINE_LOCATION, Permission.READ_PHONE_STATE)
-                            .onGranted(new Action<List<String>>() {
-                                @Override
-                                public void onAction(List<String> data) {
-                                    ShareUtils.doOnClickShareItem(MainActivity.this);
-                                }
-                            })
-                            .onDenied(new Action<List<String>>() {
-                                @Override
-                                public void onAction(List<String> data) {
-                                    Toast.makeText(MainActivity.this, "I NEED PERMISSIONS!", Toast.LENGTH_SHORT).show();
-                                }
-                            }).start();
-                } else {
-                    ShareUtils.doOnClickShareItem(MainActivity.this);
-                }
 
             }
         });
-        shareItem.setVisibility(View.GONE);     // @TODO 暂时不显示
 
         RelativeLayout contactItem = (RelativeLayout) findViewById(R.id.rl_contact);
         contactItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShareUtils.joinQQGroup(MainActivity.this);
+                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.WEB_VIEW_TYPE, WebViewActivity.TYPE_WEB_VIEW_CONTACT);
+                startActivity(intent);
             }
         });
 
         RelativeLayout feedbackItem = (RelativeLayout) findViewById(R.id.rl_feedback);
         feedbackItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.WEB_VIEW_TYPE, WebViewActivity.TYPE_WEB_VIEW_FEEDBACK);
                 startActivity(intent);
@@ -272,7 +250,7 @@ public class MainActivity extends BaseActivity {
         checkUpdateItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Beta.checkUpgrade();
+                Toast.makeText(mContext, R.string.coming_soon, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -280,7 +258,6 @@ public class MainActivity extends BaseActivity {
         aboutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.WEB_VIEW_TYPE, WebViewActivity.TYPE_WEB_VIEW_ABOUT);
                 startActivity(intent);
@@ -289,12 +266,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
-
     @Override
     protected int getContentLayout() {
         Configuration mConfiguration = getResources().getConfiguration();
-        if(mConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (mConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             return R.layout.activity_main_land;
         }
         return R.layout.activity_main;
@@ -307,13 +282,12 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUECT_CODE_VPN && resultCode == RESULT_OK) {
             Intent intent = new Intent(MainActivity.this, N2NService.class);
             Bundle bundle = new Bundle();
-            N2NSettingInfo n2NSettingInfo = new N2NSettingInfo(mCurrentSettingInfo);
-            bundle.putParcelable("n2nSettingInfo", n2NSettingInfo);
+            Config config = new Config(mCurrentSettingInfo);
+            bundle.putParcelable("n2nSettingInfo", config);
             intent.putExtra("Setting", bundle);
 
             startService(intent);
-        }
-        else if (requestCode == REQUEST_CODE_VPN_FOR_START_AT_BOOT) {
+        } else if (requestCode == REQUEST_CODE_VPN_FOR_START_AT_BOOT) {
             mStartAtBoot = (CheckBox) findViewById(R.id.check_box_start_at_boot);
             if (mStartAtBoot.isChecked()) {
                 if (resultCode == RESULT_OK) {
@@ -343,7 +317,7 @@ public class MainActivity extends BaseActivity {
                 mStartAtBoot = (CheckBox) findViewById(R.id.check_box_start_at_boot);
                 mStartAtBoot.setClickable(true);
             } else {
-                mCurrentSettingName.setText(R.string.no_setting);
+                mCurrentSettingName.setText(R.string.no_config);
                 mStartAtBoot = (CheckBox) findViewById(R.id.check_box_start_at_boot);
                 mStartAtBoot.setClickable(false);
                 mStartAtBoot.setChecked(false);
@@ -451,8 +425,8 @@ public class MainActivity extends BaseActivity {
         ThreadUtils.cachedThreadExecutor(new Runnable() {
             @Override
             public void run() {
-                if(!TextUtils.isEmpty(logTxtPath)){
-                    IOUtils.readTxtLimits(showLog,logTxtPath,1024*5,mTermAdapter);
+                if (!TextUtils.isEmpty(logTxtPath)) {
+                    IOUtils.readTxtLimits(showLog, logTxtPath, 1024 * 5, mTermAdapter);
                 }
             }
         });

@@ -8,7 +8,7 @@ import android.net.VpnService;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import wang.switchy.hin2n.Hin2nApplication;
-import wang.switchy.hin2n.model.N2NSettingInfo;
+import wang.switchy.hin2n.model.Config;
 import wang.switchy.hin2n.service.N2NService;
 import wang.switchy.hin2n.storage.db.base.model.N2NSettingModel;
 import wang.switchy.hin2n.tool.ThreadUtils;
@@ -42,8 +42,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 // 启动服务
                 Intent i = new Intent(context, N2NService.class);
                 Bundle bundle = new Bundle();
-                N2NSettingInfo n2NSettingInfo = new N2NSettingInfo(mCurrentSettingInfo);
-                bundle.putParcelable("n2nSettingInfo", n2NSettingInfo);
+                Config config = new Config(mCurrentSettingInfo);
+                bundle.putParcelable("n2nSettingInfo", config);
                 i.putExtra("Setting", bundle);
 
                 ContextCompat.startForegroundService(context,i);

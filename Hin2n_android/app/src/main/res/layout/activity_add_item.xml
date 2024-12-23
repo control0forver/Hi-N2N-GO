@@ -1,531 +1,468 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/colorBackground">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <RelativeLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_config_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="wrap_content"
+            android:hint="@string/config_name">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_setting_name"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_setting_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Setting name">
+                android:textSize="20sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_setting_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:id="@+id/ll_n2n_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_config_name"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_below="@id/til_setting_name"
-                android:id="@+id/ll_n2n_version"
-                android:orientation="vertical"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/framework" />
+
+            <Spinner
+                android:id="@+id/sp_workingFramework"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="48dp"
+                android:entries="@array/frameworks" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_super_node"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_n2n_version"
+            android:hint="@string/supernode">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_super_node"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_community"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_super_node"
+            android:hint="@string/community">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_community"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_encrypt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_community"
+            android:hint="@string/encrypt_key">
+            <!--app:passwordToggleEnabled="true"-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_encrypt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+            <!--android:inputType="textPassword"-->
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--boolean-->
+        <CheckBox
+            android:id="@+id/get_ip_from_supernode_check_box"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/til_encrypt"
+            android:text="@string/get_ip_from_supernode" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ip_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/get_ip_from_supernode_check_box"
+            android:hint="@string/ip_address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_ip_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_net_mask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_ip_address"
+            android:hint="@string/subnet_mask">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_net_mask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/config_item_default_netmask"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_dev_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_net_mask"
+            android:hint="@string/device_description"
+            app:boxStrokeColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_dev_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/more_setting_check_box"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/til_dev_desc"
+            android:text="@string/more_options" />
+
+        <RelativeLayout
+            android:id="@+id/rl_more_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/more_setting_check_box"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ll_n2n_encryption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/encryption_method"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="N2N version"/>
-                <RadioGroup
-                    android:id="@+id/rg_version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="@string/encryption_method" />
 
-                    <RadioButton
-                        android:id="@+id/rb_v1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="v1   " />
-                    <RadioButton
-                        android:id="@+id/rb_v2s"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="v2s   "/>
-                    <RadioButton
-                        android:id="@+id/rb_v2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="v2    "/>
-                    <RadioButton
-                        android:id="@+id/rb_v3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="v3"/>
-                </RadioGroup>
-
-            </LinearLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_super_node"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll_n2n_version"
-                android:hint="Supernode">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_super_node"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_community"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/til_super_node"
-                android:hint="Community">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_community"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_encrypt"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/til_community"
-                android:hint="Encrypt key">
-                <!--app:passwordToggleEnabled="true"-->
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_encrypt"
+                <Spinner
+                    android:id="@+id/til_encryption_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <!--android:inputType="textPassword"-->
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_super_node_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_n2n_encryption"
+                android:hint="@string/supernode_2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_super_node_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_mtu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_super_node_2"
+                android:hint="@string/mtu">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_mtu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_hole_punch_Interval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_mtu"
+                android:hint="@string/hole_punch_interval">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_hole_punch_interval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_local_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_hole_punch_Interval"
+                android:hint="@string/local_ip">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_local_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/check_box_local_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_local_ip"
+                android:text="@string/automatically_detect_local_ip" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_local_port"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/check_box_local_ip"
+                android:hint="@string/local_port">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_local_port"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_gateway_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_local_port"
+                android:hint="@string/gateway_ip_address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_gateway_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_dns_server_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_gateway_ip"
+                android:hint="@string/dns_server_ip_address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_dns_server_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_mac_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til_dns_server_ip"
+                android:hint="@string/mac_address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_mac_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--android:layout_below="@id/til_local_ip"-->
 
             <!--boolean-->
             <RelativeLayout
-                android:layout_marginTop="5dp"
-                android:id="@+id/rl_get_ip_from_supernode"
+                android:id="@+id/rl_resolve_super_node_ip_check_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/til_encrypt">
+                android:layout_below="@id/til_mac_address">
 
                 <CheckBox
-                    android:id="@+id/get_ip_from_supernode_check_box"
+                    android:id="@+id/resolve_super_node_ip_check_box"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/get_ip_from_supernode_check_box"
-                    android:text="Get IP from supernode"/>
-            </RelativeLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_ip_address"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_get_ip_from_supernode"
-                android:hint="IP address">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_ip_address"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_net_mask"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/til_ip_address"
-                android:hint="Subnet mask">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_net_mask"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="255.255.255.0"/>
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/resolve_super_node_ip_check_box"
+                    android:text="@string/supernodes_are_running_dynamic_ips" />
+            </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_dev_desc"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/til_net_mask"
-                android:hint="Device Description">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_dev_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+            <!--boolean-->
             <RelativeLayout
-                android:layout_marginTop="5dp"
-                android:id="@+id/rl_more_setting_check_box"
+                android:id="@+id/rl_allow_routing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/til_dev_desc">
+                android:layout_below="@id/rl_resolve_super_node_ip_check_box">
 
                 <CheckBox
-                    android:id="@+id/more_setting_check_box"
+                    android:id="@+id/allow_routing_check_box"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/more_setting_check_box"
-                    android:text="More settings"/>
+                    android:layout_toEndOf="@id/allow_routing_check_box"
+                    android:text="@string/enable_packet_forwarding" />
             </RelativeLayout>
 
+            <!--boolean-->
             <RelativeLayout
-                android:id="@+id/rl_more_setting"
-                android:layout_width="match_parent"
+                android:id="@+id/rl_drop_multicast"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rl_more_setting_check_box"
-                android:visibility="gone">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ll_n2n_encryption"
-                    android:orientation="vertical"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Encryption method">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Encryption method"/>
-
-                    <Spinner
-                        android:id="@+id/til_encryption_mode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </Spinner>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_below="@id/ll_n2n_encryption"
-                    android:id="@+id/til_super_node_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Supernode 2">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_super_node_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/til_mtu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_super_node_2"
-                    android:hint="MTU">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_mtu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/til_hole_punch_Interval"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_mtu"
-                    android:hint="Hole-punch interval">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_hole_punch_interval"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/til_local_ip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_hole_punch_Interval"
-                    android:hint="Local IP">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_local_ip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@id/rl_allow_routing">
 
                 <CheckBox
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@id/til_local_ip"
-                    android:id="@+id/check_box_local_ip"
+                    android:id="@+id/accept_multicast_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Automatically detect local IP"/>
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/accept_multicast_check_box"
+                    android:text="@string/accept_multicast_mac_addresses" />
+            </RelativeLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@id/check_box_local_ip"
-                    android:id="@+id/til_local_port"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Local port">
+            <!--boolean-->
+            <RelativeLayout
+                android:id="@+id/rl_header_enc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_drop_multicast">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_local_port"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@+id/header_enc_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_gateway_ip"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_local_port"
-                    android:hint="Gateway IP address">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_gateway_ip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_dns_server_ip"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_gateway_ip"
-                    android:hint="DNS server IP address">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_dns_server_ip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_mac_addr"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/til_dns_server_ip"
-                    android:hint="Mac address">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tie_mac_addr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!--android:layout_below="@id/til_local_ip"-->
-
-                <!--boolean-->
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/rl_resolve_super_node_ip_check_box"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/til_mac_addr">
-
-                    <CheckBox
-                        android:id="@+id/resove_super_node_ip_check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/resove_super_node_ip_check_box"
-                        android:text="Supernodes are running dynamic IPs"/>
-                </RelativeLayout>
-
-
-                <!--boolean-->
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/rl_allow_routing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_resolve_super_node_ip_check_box">
-
-                    <CheckBox
-                        android:id="@+id/allow_routing_check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/allow_routing_check_box"
-                        android:text="Enable packet forwarding"/>
-                </RelativeLayout>
-
-                <!--boolean-->
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/rl_drop_muticast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_allow_routing">
-
-                    <CheckBox
-                        android:id="@+id/accept_muticast_check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/accept_muticast_check_box"
-                        android:text="Accept multicast MAC addresses"/>
-                </RelativeLayout>
-
-                <!--boolean-->
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/rl_header_enc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_drop_muticast">
-
-                    <CheckBox
-                        android:id="@+id/header_enc_check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/header_enc_check_box"
-                        android:text="Enable full header encryption"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/rl_use_http_tunnel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_header_enc"
-                    android:visibility="gone">
-
-                    <CheckBox
-                        android:id="@+id/use_http_tunnel_check_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/use_http_tunnel_check_box"
-                        android:text="Use http tunnel"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@id/rl_use_http_tunnel"
-                    android:id="@+id/rl_trace_level"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_trace_level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Trace level : "/>
-
-                    <Spinner
-                        android:layout_toRightOf="@id/tv_trace_level"
-                        android:id="@+id/spinner_trace_level"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/header_enc_check_box"
+                    android:text="@string/enable_full_header_encryption" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:id="@+id/rl_buttons"
-                android:layout_below="@id/rl_more_setting"
+                android:id="@+id/rl_use_http_tunnel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_header_enc"
+                android:visibility="gone">
+
+                <CheckBox
+                    android:id="@+id/use_http_tunnel_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/use_http_tunnel_check_box"
+                    android:text="@string/use_http_tunnel" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_trace_level"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:visibility="gone"
-                    android:id="@+id/btn_save"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_use_http_tunnel">
+
+                <TextView
+                    android:id="@+id/tv_trace_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trace_level" />
+
+                <Spinner
+                    android:id="@+id/spinner_trace_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="save"/>
-
-                <LinearLayout
-                    android:id="@+id/ll_buttons"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/btn_modify"
-                        android:text="save"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <!--<Button-->
-                        <!--android:layout_weight="0.5"-->
-                        <!--android:id="@+id/btn_delete"-->
-                        <!--android:text="delete"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"/>-->
-                </LinearLayout>
+                    android:layout_toEndOf="@id/tv_trace_level" />
             </RelativeLayout>
 
         </RelativeLayout>
-    </ScrollView>
 
+        <RelativeLayout
+            android:id="@+id/rl_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_more_setting"
+            android:layout_marginTop="10dp">
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorButton"
+
+                    android:text="@string/save" />
+                <!--<Button-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:id="@+id/btn_delete"-->
+                <!--android:text="delete"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

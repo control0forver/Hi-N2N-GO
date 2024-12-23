@@ -1,40 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:id="@+id/iv_left_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:visibility="visible"/>
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        android:translationZ="3dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Hin2n"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:textSize="20dp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/iv_left_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/left_side_action_button"
+            android:foreground="?attr/selectableItemBackground"
+            android:minWidth="32dp"
+            android:padding="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:visibility="visible" />
+
+        <ImageButton
             android:id="@+id/iv_right_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:visibility="visible"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/right_side_action_button"
+            android:foreground="?attr/selectableItemBackground"
+            android:minWidth="32dp"
+            android:padding="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <FrameLayout

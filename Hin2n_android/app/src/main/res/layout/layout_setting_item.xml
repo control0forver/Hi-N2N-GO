@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/colorBackground"
+    android:clickable="false"
+    android:foreground="?attr/selectableItemBackground">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
+    <RadioButton
+        android:id="@+id/iv_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:buttonTint="@color/colorTextPrimary" />
 
-        <RadioButton
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/iv_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
-            android:button="@drawable/radio_button_selector"/>
+    <TextView
+        android:id="@+id/tv_setting_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/iv_selected"
+        android:text="@string/rh_configName"
+        android:textSize="17.5sp" />
 
-        <TextView
-            android:layout_toRightOf="@id/iv_selected"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/tv_setting_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:text="SettingName"/>
+    <ImageButton
+        android:id="@+id/iv_info"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/more_info_of_this_config"
+        android:padding="10dp"
+        android:src="@mipmap/ic_info" />
 
-        <ImageView
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/iv_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_info"/>
-
-    </RelativeLayout>
 </RelativeLayout>

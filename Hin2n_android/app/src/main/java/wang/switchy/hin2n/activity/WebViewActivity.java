@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import wang.switchy.hin2n.R;
@@ -21,7 +20,6 @@ import wang.switchy.hin2n.template.BaseTemplate;
 import wang.switchy.hin2n.template.CommonTitleTemplate;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
-import static android.view.KeyEvent.changeAction;
 
 /**
  * Created by janiszhang on 2018/6/25.
@@ -36,10 +34,10 @@ public class WebViewActivity extends BaseActivity {
     public static final int TYPE_WEB_VIEW_SHARE = 2;
     public static final int TYPE_WEB_VIEW_CONTACT = 3;
 
-    public static final String ABOUT_URL = "https://github.com/switch-iot/hin2n/blob/dev/README.md";
-    public static final String SHARE_URL = "https://github.com/switch-iot/hin2n/wiki/Welcome-to-hin2n";
-    public static final String CONTACT_URL = "https://github.com/switch-iot/hin2n/wiki/Feedback-&-Contact-Us";
-    public static final String FEEDBACK_URL = "https://support.qq.com/products/38470";
+    public static final String ABOUT_URL = "https://mail.bestlgf.pro/N2NGO/";
+    public static final String SHARE_URL = "https://mail.bestlgf.pro/N2NGO/Download";
+    public static final String CONTACT_URL = "https://mail.bestlgf.pro/N2NGO/Support";
+    public static final String FEEDBACK_URL = "https://github.com/control0forver/Hi-N2N-GO/issues";
 
     private WebView mWebView;
     private AVLoadingIndicatorView mLoadingView;
@@ -47,17 +45,26 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected BaseTemplate createTemplate() {
-        mCommonTitleTemplate = new CommonTitleTemplate(mContext, "About");
+        mCommonTitleTemplate = new CommonTitleTemplate(mContext, "Web");
 
-        mCommonTitleTemplate.mLeftImg.setVisibility(View.VISIBLE);
-        mCommonTitleTemplate.mLeftImg.setImageResource(R.drawable.titlebar_icon_return_selector);
-        mCommonTitleTemplate.mLeftImg.setOnClickListener(new View.OnClickListener() {
+        mCommonTitleTemplate.mLeftAction.setVisibility(View.VISIBLE);
+        mCommonTitleTemplate.mLeftAction.setImageResource(R.drawable.titlebar_icon_close);
+        mCommonTitleTemplate.mLeftAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mWebView.canGoBack()) {
-                    mWebView.goBack();
+                finish();
+            }
+        });
+
+        mCommonTitleTemplate.mRightAction.setVisibility(View.VISIBLE);
+        mCommonTitleTemplate.mRightAction.setImageResource((R.drawable.titlebar_icon_forward));
+        mCommonTitleTemplate.mRightAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mWebView.canGoForward()) {
+                    mWebView.goForward();
                 } else {
-                    finish();
+                    Toast.makeText(mContext, R.string.no_further_pages_in_the_browsing_history, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -113,7 +120,7 @@ public class WebViewActivity extends BaseActivity {
                 mLoadingView.setVisibility(View.GONE);
                 if (mWebView != null) {
                     mWebView.setVisibility(View.VISIBLE);
-
+                    mCommonTitleTemplate.setTitleText(view.getTitle());
                 }
 
             }
@@ -132,19 +139,19 @@ public class WebViewActivity extends BaseActivity {
 
         switch (webViewType) {
             case TYPE_WEB_VIEW_ABOUT:
-                mCommonTitleTemplate.setTitleText("About");
+                mCommonTitleTemplate.setTitleText(R.string.about);
                 mWebView.loadUrl(ABOUT_URL);
                 break;
             case TYPE_WEB_VIEW_FEEDBACK:
-                mCommonTitleTemplate.setTitleText("Feedback");
+                mCommonTitleTemplate.setTitleText(R.string.feedback);
                 mWebView.loadUrl(FEEDBACK_URL);
                 break;
             case TYPE_WEB_VIEW_SHARE:
-                mCommonTitleTemplate.setTitleText("Share");
+                mCommonTitleTemplate.setTitleText(R.string.share);
                 mWebView.loadUrl(SHARE_URL);
                 break;
             case TYPE_WEB_VIEW_CONTACT:
-                mCommonTitleTemplate.setTitleText("Contact");
+                mCommonTitleTemplate.setTitleText(R.string.contact_us);
                 mWebView.loadUrl(CONTACT_URL);
                 break;
             default:
@@ -188,6 +195,6 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_about;
+        return R.layout.activity_empty_template;
     }
 }

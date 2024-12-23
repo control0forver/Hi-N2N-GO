@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,8 +32,8 @@ public class CommonTitleTemplate extends BaseTemplate {
      */
     private FrameLayout mContainerLayout;
 
-    public final ImageView mLeftImg;
-    public final ImageView mRightImg;
+    public final ImageButton mLeftAction;
+    public final ImageButton mRightAction;
     private final TextView mTitleText;
 
 
@@ -49,8 +49,8 @@ public class CommonTitleTemplate extends BaseTemplate {
 
         mTitleText = (TextView) mPageView.findViewById(R.id.tv_title);
 
-        mLeftImg = (ImageView) mPageView.findViewById(R.id.iv_left_img);
-        mRightImg = (ImageView) mPageView.findViewById(R.id.iv_right_img);
+        mLeftAction = (ImageButton) mPageView.findViewById(R.id.iv_left_img);
+        mRightAction = (ImageButton) mPageView.findViewById(R.id.iv_right_img);
 
         mTitleText.setText(title);
     }

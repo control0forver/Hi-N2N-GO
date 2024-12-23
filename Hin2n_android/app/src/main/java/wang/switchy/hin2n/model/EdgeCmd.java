@@ -62,34 +62,34 @@ public class EdgeCmd {
         this.headerEnc = headerEnc;
     }
 
-    public EdgeCmd(N2NSettingInfo n2NSettingInfo, int vpnFd, String logPath){
-        this.edgeType = n2NSettingInfo.getVersion();
-        this.ipMode = n2NSettingInfo.getIpMode();
-        this.ipAddr = n2NSettingInfo.getIp();
-        this.ipNetmask = n2NSettingInfo.getNetmask();
+    public EdgeCmd(Config config, int vpnFd, String logPath){
+        this.edgeType = config.getFramework();
+        this.ipMode = config.getIpMode();
+        this.ipAddr = config.getIp();
+        this.ipNetmask = config.getNetmask();
         this.supernodes = new String[2];
-        this.supernodes[0] = n2NSettingInfo.getSuperNode();
-        this.supernodes[1] = n2NSettingInfo.getSuperNodeBackup();
-        this.community = n2NSettingInfo.getCommunity();
-        this.encKey = n2NSettingInfo.getPassword();
-        this.devDesc = n2NSettingInfo.getDevDesc();
+        this.supernodes[0] = config.getSuperNode();
+        this.supernodes[1] = config.getSuperNodeBackup();
+        this.community = config.getCommunity();
+        this.encKey = config.getPassword();
+        this.devDesc = config.getDevDesc();
         this.encKeyFile = "";
-        this.macAddr = n2NSettingInfo.getMacAddr();
-        this.mtu = n2NSettingInfo.getMtu();
-        this.localIP = n2NSettingInfo.getLocalIP();
-        this.holePunchInterval = n2NSettingInfo.getHolePunchInterval();
-        this.reResoveSupernodeIP = n2NSettingInfo.isResoveSupernodeIP();
-        this.localPort = n2NSettingInfo.getLocalPort();
-        this.allowRouting = n2NSettingInfo.isAllowRouting();
-        this.dropMuticast = n2NSettingInfo.isDropMuticast();
-        this.httpTunnel = n2NSettingInfo.isUseHttpTunnel();
-        this.traceLevel = n2NSettingInfo.getTraceLevel();
+        this.macAddr = config.getMacAddr();
+        this.mtu = config.getMtu();
+        this.localIP = config.getLocalIP();
+        this.holePunchInterval = config.getHolePunchInterval();
+        this.reResoveSupernodeIP = config.isResoveSupernodeIP();
+        this.localPort = config.getLocalPort();
+        this.allowRouting = config.isAllowRouting();
+        this.dropMuticast = config.isDropMuticast();
+        this.httpTunnel = config.isUseHttpTunnel();
+        this.traceLevel = config.getTraceLevel();
         this.vpnFd = vpnFd;
         this.logPath = logPath;
-        this.gatewayIp = n2NSettingInfo.getGatewayIp();
-        this.dnsServer = n2NSettingInfo.getDnsServer();
-        this.encryptionMode = n2NSettingInfo.getEncryptionMode();
-        this.headerEnc = n2NSettingInfo.isHeaderEnc();
+        this.gatewayIp = config.getGatewayIp();
+        this.dnsServer = config.getDnsServer();
+        this.encryptionMode = config.getEncryptionMode();
+        this.headerEnc = config.isHeaderEnc();
     }
 
     public boolean checkValues(Vector<String> invalids) {

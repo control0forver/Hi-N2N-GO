@@ -9,20 +9,13 @@ import android.util.TypedValue;
 
 import java.net.InetAddress;
 
+import wang.switchy.hin2n.Hin2nApplication;
+
 /**
  * Created by janiszhang on 2018/5/23.
  */
 
 public class N2nTools {
-    public static final String MetaUmengAppKey = "UMENG_APPKEY";
-    public static final String MetaUmengChannel = "UMENG_CHANNEL";
-    public static final String MetaBuglyAppId = "BUGLY_APPID";
-    public static final String MetaShareWxAppId = "SHARE_WX_APPID";
-    public static final String MetaShareWxAppSecret = "SHARE_WX_APPSECRET";
-    public static final String MetaShareWbAppId = "SHARE_WB_APPID";
-    public static final String MetaShareWbAppSecret = "SHARE_WB_APPSECRET";
-
-
     public static int dp2px(Context context, int dp) {
 
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());

@@ -60,7 +60,9 @@ enum
     EDGE_TYPE_V1,
     EDGE_TYPE_V2,
     EDGE_TYPE_V2S,
-    EDGE_TYPE_V3
+    EDGE_TYPE_V3,
+    EDGE_TYPE_N2NGO,
+    EDGE_TYPE_OVERFLOW // usage: assert(type >= EDGE_TYPE_OVERFLOW)
 };
 
 typedef struct n2n_edge_status_st {

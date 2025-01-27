@@ -81,29 +81,43 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_encrypt"
+        <LinearLayout
+            android:id="@+id/ll_password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/til_community"
-            android:hint="@string/encrypt_key">
-            <!--app:passwordToggleEnabled="true"-->
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tie_encrypt"
+            <CheckBox
+                android:id="@+id/has_password_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_encrypt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
-            <!--android:inputType="textPassword"-->
+                android:layout_marginStart="8dp"
+                android:hint="@string/encrypt_key">
+                <!--app:passwordToggleEnabled="true"-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_encrypt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+                <!--android:inputType="textPassword"-->
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <!--boolean-->
         <CheckBox
             android:id="@+id/get_ip_from_supernode_check_box"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_below="@id/til_encrypt"
+            android:layout_below="@id/ll_password_field"
             android:text="@string/get_ip_from_supernode" />
 
         <com.google.android.material.textfield.TextInputLayout

@@ -1,6 +1,7 @@
 package lgfstudio.bestlgf.hin2ngo.template;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;

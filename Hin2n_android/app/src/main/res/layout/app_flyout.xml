@@ -25,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_share" />
+                android:src="@drawable/ic_share"
+                android:tint="@color/colorTextPrimary" />
 
             <TextView
                 android:id="@+id/tv_share"
@@ -35,7 +36,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/item_icon_share"
                 android:text="@string/share"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -54,7 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_contact" />
+                android:src="@drawable/ic_contact_us"
+                android:tint="@color/colorTextPrimary" />
 
             <TextView
                 android:id="@+id/iv_contact"
@@ -65,7 +66,6 @@
                 android:layout_toEndOf="@id/item_icon_contact"
                 android:ellipsize="end"
                 android:text="@string/contact_us"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -84,7 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_feedback" />
+                android:src="@drawable/ic_feedback"
+                android:tint="@color/colorTextPrimary" />
 
             <TextView
                 android:id="@+id/iv_feedback"
@@ -95,7 +96,6 @@
                 android:layout_toEndOf="@id/item_icon_feedback"
                 android:ellipsize="end"
                 android:text="@string/feedback"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -114,7 +114,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_update" />
+                android:tint="@color/colorTextPrimary"
+                android:src="@drawable/ic_check_for_update" />
 
             <TextView
                 android:id="@+id/tv_update"
@@ -124,7 +125,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/item_icon_update"
                 android:text="@string/check_update"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -143,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_about" />
+                android:src="@drawable/ic_about" />
 
             <TextView
                 android:id="@+id/tv_about"
@@ -153,7 +153,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/item_icon_about"
                 android:text="@string/about"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RelativeLayout>
     </LinearLayout>

@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected BaseTemplate createTemplate() {
         CommonTitleTemplate titleTemplate = new CommonTitleTemplate(this, getString(R.string.app_name));
-        titleTemplate.mRightAction.setImageResource(R.mipmap.ic_add);
+        titleTemplate.mRightAction.setImageResource(R.drawable.ic_add);
         titleTemplate.mRightAction.setVisibility(View.VISIBLE);
         titleTemplate.mRightAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        titleTemplate.mLeftAction.setImageResource(R.mipmap.ic_menu);
+        titleTemplate.mLeftAction.setImageResource(R.drawable.ic_menu);
         titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
         titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
         titleTemplate.mLeftAction.setOnClickListener(new View.OnClickListener() {

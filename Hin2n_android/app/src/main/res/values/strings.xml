@@ -3,8 +3,6 @@
     <string name="open">open</string>
     <string name="close">close</string>
 
-    <string name="facebook_app_id" translatable="false"></string>
-
     <string name="no_config">None</string>
     <string name="title_add_setting">New Config</string>
     <string name="title_update_setting">Update Config</string>

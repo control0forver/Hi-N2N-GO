@@ -56,6 +56,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
     private TextInputLayout mIpAddressTIL;
     private TextInputLayout mNetMaskTIL;
     private TextInputLayout mCommunityTIL;
+    private CheckBox mHasPasswordCheckBox;
     private TextInputLayout mEncryptTIL;
 
     private CheckBox mGetIpFromSupernodeCheckBox;
@@ -101,7 +102,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
     protected BaseTemplate createTemplate() {
         CommonTitleTemplate titleTemplate = new CommonTitleTemplate(mContext, getString(R.string.title_add_setting));
         titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
-        titleTemplate.mLeftAction.setImageResource(R.drawable.titlebar_icon_return_selector);
+        titleTemplate.mLeftAction.setImageResource(R.drawable.ic_back);
         titleTemplate.mLeftAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +131,13 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
         mIpAddressTIL = (TextInputLayout) findViewById(R.id.til_ip_address);
         mNetMaskTIL = (TextInputLayout) findViewById(R.id.til_net_mask);
         mCommunityTIL = (TextInputLayout) findViewById(R.id.til_community);
+        mHasPasswordCheckBox = (CheckBox) findViewById(R.id.has_password_check_box);
+        mHasPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mEncryptTIL.setEnabled(b);
+            }
+        });
         mEncryptTIL = (TextInputLayout) findViewById(R.id.til_encrypt);
         mEncryptTIL.getEditText().setTransformationMethod(PasswordTransformationMethod.getInstance());//隐藏
         mSuperNodeTIL = (TextInputLayout) findViewById(R.id.til_super_node);
@@ -159,11 +167,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
         mMoreSettingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    mMoreSettingView.setVisibility(View.VISIBLE);
-                } else {
-                    mMoreSettingView.setVisibility(View.GONE);
-                }
+                mMoreSettingView.setVisibility(b ? View.VISIBLE : View.GONE);
             }
         });
 
@@ -242,6 +246,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
             mWorkingFramework.setSelection(4);
             mSuperNodeTIL.getEditText().setText(R.string.config_item_default_supernode_n2ngo);
             mCommunityTIL.getEditText().setText(R.string.config_item_default_community);
+            mHasPasswordCheckBox.setChecked(Boolean.valueOf(getString(R.string.config_item_default_has_password)));
             mEncryptTIL.getEditText().setText(R.string.config_item_default_password);
             mIpAddressTIL.getEditText().setText(R.string.config_item_default_ip);
             mSuperNodeBackup.getEditText().setText(R.string.config_item_default_supernode_backup);
@@ -278,6 +283,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
             mIpAddressTIL.getEditText().setText(mConfigModel.getIp());
             mNetMaskTIL.getEditText().setText(mConfigModel.getNetmask());
             mCommunityTIL.getEditText().setText(mConfigModel.getCommunity());
+            mHasPasswordCheckBox.setChecked(mConfigModel.getHasPassword());
             mEncryptTIL.getEditText().setText(mConfigModel.getPassword());
             mDevDescTIL.getEditText().setText(mConfigModel.getDevDesc());
             mSuperNodeTIL.getEditText().setText(mConfigModel.getSuperNode());
@@ -309,6 +315,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
             mButtons.setVisibility(View.VISIBLE);
             mSaveButton.setVisibility(View.GONE);
         }
+
+        mEncryptTIL.setEnabled(mHasPasswordCheckBox.isChecked());  // why that fucking listener dose not work in time??
 
         mWorkingFramework.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -362,6 +370,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
         }
         switch (checkedId) {
             case 0: {
+                mHasPasswordCheckBox.setVisibility(View.GONE);
+                mHasPasswordCheckBox.setChecked(true);
                 mUseHttpTunnelCheckBox.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setChecked(false);
@@ -382,6 +392,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             }
             case 1: {
+                mHasPasswordCheckBox.setVisibility(View.GONE);
+                mHasPasswordCheckBox.setChecked(true);
                 mUseHttpTunnelCheckBox.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setChecked(false);
@@ -402,6 +414,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             }
             case 2: {
+                mHasPasswordCheckBox.setVisibility(View.GONE);
+                mHasPasswordCheckBox.setChecked(true);
                 mUseHttpTunnelCheckBox.setVisibility(View.GONE);
                 mDevDescTIL.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setVisibility(View.GONE);
@@ -422,6 +436,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             }
             case 3: {
+                mHasPasswordCheckBox.setVisibility(View.GONE);
+                mHasPasswordCheckBox.setChecked(true);
                 mUseHttpTunnelCheckBox.setVisibility(View.GONE);
                 mDevDescTIL.setVisibility(View.VISIBLE);
                 mGetIpFromSupernodeCheckBox.setVisibility(View.VISIBLE);
@@ -445,6 +461,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             }
             case 4: {
+                mHasPasswordCheckBox.setVisibility(View.VISIBLE);
                 mUseHttpTunnelCheckBox.setVisibility(View.GONE);
                 mDevDescTIL.setVisibility(View.GONE);
                 mGetIpFromSupernodeCheckBox.setVisibility(View.VISIBLE);
@@ -460,7 +477,8 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
                 mGatewayIp.setVisibility(View.VISIBLE);
                 mDnsServer.setVisibility(View.VISIBLE);
                 mResolveSnLayout.setVisibility(View.GONE);
-                mEncryptionBox.setVisibility(View.VISIBLE);
+                mEncryptionMode.setSelection(((ArrayAdapter<CharSequence>) mEncryptionMode.getAdapter()).getPosition("AES-CBC"));
+                mEncryptionBox.setVisibility(View.GONE);
                 mHeaderEncCheckBox.setVisibility(View.VISIBLE);
                 if (isDefaultSupernode(mSuperNodeTIL.getEditText().getText().toString())) {
                     mSuperNodeTIL.getEditText().setText(R.string.config_item_default_supernode_n2ngo);
@@ -508,7 +526,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
 
                 mConfigModel = new N2NSettingModel(null, getWorkingFramework(), settingName, mGetIpFromSupernodeCheckBox.isChecked() ? 1 : 0,
                         mIpAddressTIL.getEditText().getText().toString(), mNetMaskTIL.getEditText().getText().toString(),
-                        mCommunityTIL.getEditText().getText().toString(), mEncryptTIL.getEditText().getText().toString(),
+                        mCommunityTIL.getEditText().getText().toString(), mHasPasswordCheckBox.isChecked(), mEncryptTIL.getEditText().getText().toString(),
                         mDevDescTIL.getEditText().getText().toString(),
                         mSuperNodeTIL.getEditText().getText().toString(), mMoreSettingCheckBox.isChecked(),
                         mSuperNodeBackup.getEditText().getText().toString(), mMacAddress.getEditText().getText().toString(),
@@ -561,7 +579,7 @@ public class SettingDetailsActivity extends BaseActivity implements View.OnClick
 
                 mConfigModel = new N2NSettingModel(mSaveId, getWorkingFramework(), settingName1, mGetIpFromSupernodeCheckBox.isChecked() ? 1 : 0,
                         mIpAddressTIL.getEditText().getText().toString(), mNetMaskTIL.getEditText().getText().toString(),
-                        mCommunityTIL.getEditText().getText().toString(), mEncryptTIL.getEditText().getText().toString(),
+                        mCommunityTIL.getEditText().getText().toString(), mHasPasswordCheckBox.isChecked(), mEncryptTIL.getEditText().getText().toString(),
                         mDevDescTIL.getEditText().getText().toString(),
                         mSuperNodeTIL.getEditText().getText().toString(), mMoreSettingCheckBox.isChecked(),
                         mSuperNodeBackup.getEditText().getText().toString(), mMacAddress.getEditText().getText().toString(),

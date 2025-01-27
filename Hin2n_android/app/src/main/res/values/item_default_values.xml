@@ -4,6 +4,7 @@
     <string name="config_item_default_ip" translatable="false"></string>
     <string name="config_item_default_netmask" translatable="false">255.255.255.0</string>
     <string name="config_item_default_community" translatable="false"></string>
+    <string name="config_item_default_has_password" translatable="false">false</string>
     <string name="config_item_default_password" translatable="false"></string>
     <string name="config_item_default_supernode_v1" translatable="false">hin2n.nton.eu.org:10082</string>
     <string name="config_item_default_supernode_v2" translatable="false">hin2n.nton.eu.org:10086</string>

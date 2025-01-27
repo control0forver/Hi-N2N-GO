@@ -56,7 +56,7 @@ public class ListActivity extends BaseActivity {
     protected BaseTemplate createTemplate() {
         CommonTitleTemplate titleTemplate = new CommonTitleTemplate(mContext, getString(R.string.title_setting_list));
         titleTemplate.mRightAction.setVisibility(View.VISIBLE);
-        titleTemplate.mRightAction.setImageResource(R.mipmap.ic_add);
+        titleTemplate.mRightAction.setImageResource(R.drawable.ic_add);
         titleTemplate.mRightAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class ListActivity extends BaseActivity {
         });
 
         titleTemplate.mLeftAction.setVisibility(View.VISIBLE);
-        titleTemplate.mLeftAction.setImageResource(R.drawable.titlebar_icon_return_selector);
+        titleTemplate.mLeftAction.setImageResource(R.drawable.ic_back);
         titleTemplate.mLeftAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +147,7 @@ public class ListActivity extends BaseActivity {
 
                                             }
 
-                                            N2NSettingModel configModel = new N2NSettingModel(null, configModelCopy.getVersion(), copyName, configModelCopy.getIpMode(), configModelCopy.getIp(), configModelCopy.getNetmask(), configModelCopy.getCommunity(), configModelCopy.getPassword(), configModelCopy.getDevDesc(), configModelCopy.getSuperNode(), configModelCopy.getMoreSettings(), configModelCopy.getSuperNodeBackup(), configModelCopy.getMacAddr(), configModelCopy.getMtu(), configModelCopy.getLocalIP(), configModelCopy.getHolePunchInterval(), configModelCopy.getResoveSupernodeIP(), configModelCopy.getLocalPort(), configModelCopy.getAllowRouting(), configModelCopy.getDropMuticast(), configModelCopy.isUseHttpTunnel(), configModelCopy.getTraceLevel(), false, configModelCopy.getGatewayIp(), configModelCopy.getDnsServer(), configModelCopy.getEncryptionMode(), configModelCopy.getHeaderEnc());
+                                            N2NSettingModel configModel = new N2NSettingModel(null, configModelCopy.getVersion(), copyName, configModelCopy.getIpMode(), configModelCopy.getIp(), configModelCopy.getNetmask(), configModelCopy.getCommunity(), configModelCopy.getHasPassword(), configModelCopy.getPassword(), configModelCopy.getDevDesc(), configModelCopy.getSuperNode(), configModelCopy.getMoreSettings(), configModelCopy.getSuperNodeBackup(), configModelCopy.getMacAddr(), configModelCopy.getMtu(), configModelCopy.getLocalIP(), configModelCopy.getHolePunchInterval(), configModelCopy.getResoveSupernodeIP(), configModelCopy.getLocalPort(), configModelCopy.getAllowRouting(), configModelCopy.getDropMuticast(), configModelCopy.getUseHttpTunnel(), configModelCopy.getTraceLevel(), false, configModelCopy.getGatewayIp(), configModelCopy.getDnsServer(), configModelCopy.getEncryptionMode(), configModelCopy.getHeaderEnc());
                                             configModelDao1.insert(configModel);
 
                                             //2.ui update

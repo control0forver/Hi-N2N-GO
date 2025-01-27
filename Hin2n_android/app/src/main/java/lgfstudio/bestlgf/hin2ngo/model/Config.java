@@ -49,7 +49,7 @@ public class Config implements Parcelable {
         this.ip = configModel.getIp();
         this.netmask = configModel.getNetmask();
         this.community = configModel.getCommunity();
-        this.password = configModel.getPassword();
+        this.password = configModel.getHasPassword() ? configModel.getPassword() : "null";
         this.devDesc = configModel.getDevDesc();
         this.superNode = configModel.getSuperNode();
         this.moreSettings = configModel.getMoreSettings();
@@ -63,7 +63,7 @@ public class Config implements Parcelable {
         this.allowRouting = configModel.getAllowRouting();
         this.dropMuticast = configModel.getDropMuticast();
         this.traceLevel = configModel.getTraceLevel();
-        this.useHttpTunnel = configModel.isUseHttpTunnel();
+        this.useHttpTunnel = configModel.getUseHttpTunnel();
         this.gatewayIp = configModel.getGatewayIp();
         this.dnsServer = configModel.getDnsServer();
         this.encryptionMode = configModel.getEncryptionMode();
@@ -127,9 +127,13 @@ public class Config implements Parcelable {
         this.name = name;
     }
 
-    public int getIpMode() {return ipMode;}
+    public int getIpMode() {
+        return ipMode;
+    }
 
-    public void setIpMode(int ipMode) { this.ipMode = ipMode; }
+    public void setIpMode(int ipMode) {
+        this.ipMode = ipMode;
+    }
 
     public String getIp() {
         return ip;
@@ -171,9 +175,13 @@ public class Config implements Parcelable {
         this.superNode = superNode;
     }
 
-    public String getDevDesc() { return devDesc; }
+    public String getDevDesc() {
+        return devDesc;
+    }
 
-    public void setDevDesc(String devDesc) { this.devDesc = devDesc; }
+    public void setDevDesc(String devDesc) {
+        this.devDesc = devDesc;
+    }
 
     public boolean isMoreSettings() {
         return moreSettings;
@@ -287,7 +295,9 @@ public class Config implements Parcelable {
         return dnsServer;
     }
 
-    public String getEncryptionMode() { return encryptionMode; }
+    public String getEncryptionMode() {
+        return encryptionMode;
+    }
 
     public boolean isHeaderEnc() {
         return headerEnc;
